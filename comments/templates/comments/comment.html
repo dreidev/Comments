@@ -1,0 +1,16 @@
+Comment: {{ object.comment }}
+<br>
+Likes: {{ object.likes_count }}
+<br>
+By: 
+{% if object.user %}
+	{{ object.user.username }}
+{% else %}
+	Guest
+{% endif %}
+<form class="comment-delete-form" method='DELETE' action="{% url "comment-delete" object.pk %}">
+	<input value="{% csrf_token %}" id="csrf" hidden>
+	{% csrf_token %}
+	<input type="submit" value="Delete" class="comment-delete-btn" data-id="{{ object.id }}"/>
+</form>
+<br> ------------------- <br>
