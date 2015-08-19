@@ -55,3 +55,17 @@ docs/_build/
 
 # PyBuilder
 target/
+
+comments/migrations/
+*.pyc
+*.sqlite3
+*.DS_Store
+media/
+
+# Front End
+/node_modules
+/dist
+/.tmp
+/.sass-cache
+/bower_components
+

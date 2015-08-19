@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<script src="{% static "js/jquery.js" %}"></script>
+	<title>Comments List</title>
+</head>
+<body>
+	{% for object in object_list %}
+		Comment: {{ object.comment }}
+		<br>
+		Likes: {{ object.likes_count }}
+		<br>
+		By: 
+		{% if object.user %}
+			{{ object.user.username }}
+		{% else %}
+			Guest
+		{% endif %}
+		<br> ------------------- <br>
+	{% endfor %}
+	<div id="comment-input-div">
+		{% include "comments/comment_form.html" with form=form %}
+	</div>
+</body>
+<script type="text/javascript">
+	$(document).ready(function () {
+    // Handler for .ready() called.
+	    $('html, body').animate({
+	        scrollTop: $('#comment-input-div').offset().top
+	    }, 'slow');
+	});
+</script>
+</html>
