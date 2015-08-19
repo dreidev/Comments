@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit</title>
+</head>
+<body>
+<form action="{% url 'comment-update' object.id %}" method="post" id="post-form">{% csrf_token %}
+ Edit :{{ form.comment }}
+ <input id="id_user" name="user" value="{% if user.is_authenticated %}{{ user }}{% endif %}" hidden>
+ <input type="submit" value="Submit" />
+</form>
+<script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
+<script type="text/javascript" src="{% static "js/comment-edit.js" %}"></script>
+</body>
+</html>
