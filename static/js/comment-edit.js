@@ -12,7 +12,7 @@ $(document).ready(function() {
     var data = $('#edit-form').serialize();
     var id = $(this).attr('data-id');
     var comment = document.getElementById('comment-'+id);
-    console.log(comment);
+    var error = document.getElementById('edit-form-errors');
 
     $.ajax({
             type: "POST",
@@ -20,11 +20,19 @@ $(document).ready(function() {
             data: $('#edit-form').serialize(),
 
             success: function(data){
-            	if(JSON.parse(data).success == 1) {
+                json = JSON.parse(data);
+            	if(json.success == 1) {
             		comment.innerHTML = $('#id_comment').val();
             		$('#comment-edit-' + id).hide();
             		$('#comment-' + id).show();
-            		            	}
+            	} else if(json.success == 0){
+                     errors = ""
+                  for (var err in json.error){
+                    errors += "" + json.error[err] + "\n";
+                }
+                error.innerHTML = errors;
+            }
+
             },
             dataType: 'html'
         });
