@@ -4,6 +4,7 @@
 	<head>
 		<script src="{% static "js/jquery.js" %}"></script>
 		<script src="{% static "js/delete.js" %}"></script>
+		<script src="{% static "js/comments.js" %}"></script>
 		<title>Comments List</title>
 	</head>
 	<body>
@@ -11,6 +12,8 @@
 			<div id="comment-div-{{ object.id }}" >
 				{% include "comments/comment.html" with object=object %}
 			</div>
+		{% empty %}
+			<h3> No Comments </h3>
 		{% endfor %}
 		<div id="comment-input-div">
 			{% include "comments/comment_form.html" with form=form %}
