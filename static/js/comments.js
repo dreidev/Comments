@@ -19,8 +19,8 @@ $(document).ready(function() {
                   alert(errors)                      
                 }
                 else {
-                	html = "<div class='comment'> Comment:"+ json['comment'] + "<br> Likes: {{ object.likes_count }}<br></div>"
-					$('body').append(html)
+                	$('#comment-input-div').prepend(json['html']);
+                	$('#id_comment').val('');
                 }
 
             },

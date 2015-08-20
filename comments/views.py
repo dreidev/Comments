@@ -27,11 +27,13 @@ class AjaxableResponseMixin(object):
         # call form.save() for example).
         response = super(AjaxableResponseMixin, self).form_valid(form)
         if self.request.is_ajax():
+            html = render_to_string(
+                "comments/comment.html",
+                {'object': self.object})
             try:
                 data = {
                     'success': 1,
-                    'pk': self.object.pk,
-                    'comment': self.object.comment,
+                    'html': html,
                 }
             except:
                 data = {
