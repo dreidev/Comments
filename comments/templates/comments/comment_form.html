@@ -10,7 +10,7 @@
 		{{ form.comment.label }}
 		<br>
 		{{ form.comment }}
-		<input id="id_user" name="user" value="{% if user.is_authenticated %}{{ user }}{% endif %}" hidden>
+		<input id="id_user" name="user" value="{% if request.user.is_authenticated %}{{ request.user.id }}{% endif %}" hidden>
 		<input type="submit" value="Submit" />
 	</form>
 </body>

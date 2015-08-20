@@ -4,12 +4,13 @@
 	<head>
 		<script src="{% static "js/jquery.js" %}"></script>
 		<script src="{% static "js/delete.js" %}"></script>
+		<script src="{% static "js/like.js" %}"></script>
 		<title>Comments List</title>
 	</head>
 	<body>
-		{% for object in object_list %}
+		{% for comment, liked in comment_liked %}
 			<div id="comment-div-{{ object.id }}" >
-				{% include "comments/comment.html" with object=object %}
+				{% include "comments/comment.html" with object=comment liked=liked %}
 			</div>
 		{% endfor %}
 		<div id="comment-input-div">
