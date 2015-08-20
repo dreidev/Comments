@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<form method="POST" action="{% url "comment-create" %}">
+
+	<form method="POST" action="{% url "comment-create" %}" class="add-comment-form">
 		{% csrf_token %}
 		{{ form.errors }}
 		{{ form.comment.label }}
 		<br>
 		{{ form.comment }}
+
 		<input id="id_user" name="user" value="{% if request.user.is_authenticated %}{{ request.user.id }}{% endif %}" hidden>
-		<input type="submit" value="Submit" />
+		<input type="submit" value="Submit" id="add-comment" />
 	</form>
 </body>
 </html>

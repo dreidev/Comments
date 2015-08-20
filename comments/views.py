@@ -1,13 +1,14 @@
 from django.views.generic import (
-    CreateView, ListView, DeleteView, FormView)
+    CreateView, ListView, DeleteView, FormView,
+    UpdateView)
 from django.core.urlresolvers import reverse_lazy
+from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponseRedirect
 from .models import Comment, Like
 from .forms import CommentForm
 from django.contrib.auth import authenticate, login
 
 
-# Create your views here.
 class AjaxableResponseMixin(object):
     """
     Mixin to add AJAX support to a form.
@@ -28,12 +29,13 @@ class AjaxableResponseMixin(object):
         # call form.save() for example).
         response = super(AjaxableResponseMixin, self).form_valid(form)
         if self.request.is_ajax():
+            html = render_to_string(
+                "comments/comment.html",
+                {'object': self.object})
             try:
-                pk = self.recipe_id
                 data = {
                     'success': 1,
-                    'pk': pk
-
+                    'html': html,
                 }
             except:
                 data = {
@@ -47,6 +49,7 @@ class AjaxableResponseMixin(object):
 class CommentListView(ListView):
 
     """
+    Class that lists all instances of model:comment.Comment
     """
     model = Comment
     template_name = "comments/comments.html"
@@ -83,7 +86,11 @@ class CommentListView(ListView):
         return zip(comments, liked)
 
 
-class CommentCreateView(CreateView):
+class CommentCreateView(AjaxableResponseMixin, CreateView):
+    """
+    Class that creates an instance of model:comment.Comment
+
+    """
     form_class = CommentForm
     model = Comment
     template_name = 'comments/comment_form.html'
@@ -91,6 +98,10 @@ class CommentCreateView(CreateView):
 
 
 class CommentDeleteView(DeleteView):
+    """
+    Class that deletes an instance of model:comment.Comment
+
+    """
     model = Comment
     success_url = reverse_lazy('comment-list')
 
@@ -170,3 +181,10 @@ class UnlikeComment(FormView):
         except:
             data['error'] = "This comment might have been removed"
         return JsonResponse(data)
+
+
+class CommentUpdateView(AjaxableResponseMixin, UpdateView):
+    form_class = CommentForm
+    model = Comment
+    template_name = 'comments/edit.html'
+    success_url = reverse_lazy('comment-list')

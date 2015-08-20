@@ -5,16 +5,27 @@
 		<script src="{% static "js/jquery.js" %}"></script>
 		<script src="{% static "js/delete.js" %}"></script>
 		<script src="{% static "js/like.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/comment-edit.js" %}"></script>
+		<script src="{% static "js/comments.js" %}"></script>
 		<title>Comments List</title>
 	</head>
 	<body>
+
 		{% for comment, liked in comment_liked %}
+
 			<div id="comment-div-{{ object.id }}" >
-				{% include "comments/comment.html" with object=comment liked=liked %}
+				{% include "comments/comment.html" with object=comment liked=liked form=form %}
 			</div>
+
+		{% empty %}
+
+			<h3> No Comments </h3>
+
 		{% endfor %}
+
 		<div id="comment-input-div">
 			{% include "comments/comment_form.html" with form=form %}
 		</div>
+
 	</body>
 </html>
