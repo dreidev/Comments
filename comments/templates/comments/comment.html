@@ -1,0 +1,23 @@
+{% load static %}
+
+Comment: <p id='comment-{{ object.id }}'> {{ object.comment }} </p>
+<div id="comment-edit-{{ object.id }}" hidden>
+	{% include "comments/edit.html" with pk=object.id form=form %}
+</div>
+<br>
+Likes: {{ object.likes_count }}
+<br>
+By: 
+{% if object.user %}
+	{{ object.user.username }}
+{% else %}
+	Guest
+{% endif %}
+<form class="comment-delete-form" method='DELETE' action="{% url "comment-delete" object.pk %}">
+	<input value="{% csrf_token %}" id="csrf" hidden>
+	{% csrf_token %}
+	<input type="submit" value="Delete" class="comment-delete-btn" data-id="{{ object.id }}"/>
+</form>
+<button class='comment-edit-class' data-id='{{ object.id }}'> Edit</button>
+
+<br> ------------------- <br>

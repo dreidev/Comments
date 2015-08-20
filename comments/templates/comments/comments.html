@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<script src="{% static "js/jquery.js" %}"></script>
+		<script src="{% static "js/delete.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/comment-edit.js" %}"></script>
+		<title>Comments List</title>
+	</head>
+	<body>
+		{% for object in object_list %}
+			<div id="comment-div-{{ object.id }}" >
+				{% include "comments/comment.html" with object=object form=form %}
+			</div>
+		{% endfor %}
+		<div id="comment-input-div">
+			{% include "comments/comment_form.html" with form=form %}
+		</div>
+	</body>
+</html>
