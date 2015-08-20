@@ -4,13 +4,14 @@
 	<head>
 		<script src="{% static "js/jquery.js" %}"></script>
 		<script src="{% static "js/delete.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/comment-edit.js" %}"></script>
 		<script src="{% static "js/comments.js" %}"></script>
 		<title>Comments List</title>
 	</head>
 	<body>
 		{% for object in object_list %}
 			<div id="comment-div-{{ object.id }}" >
-				{% include "comments/comment.html" with object=object %}
+				{% include "comments/comment.html" with object=object form=form %}
 			</div>
 		{% empty %}
 			<h3> No Comments </h3>

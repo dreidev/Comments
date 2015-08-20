@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, ListView, DeleteView
+from django.views.generic import CreateView, ListView, DeleteView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponseRedirect
@@ -84,3 +84,10 @@ class CommentDeleteView(DeleteView):
             return JsonResponse(data)
         else:
             return HttpResponseRedirect(self.success_url)
+
+
+class CommentUpdateView(AjaxableResponseMixin, UpdateView):
+    form_class = CommentForm
+    model = Comment
+    template_name = 'comments/edit.html'
+    success_url = reverse_lazy('comment-list')
