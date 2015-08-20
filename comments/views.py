@@ -6,7 +6,6 @@ from .models import Comment
 from .forms import CommentForm
 
 
-# Create your views here.
 class AjaxableResponseMixin(object):
     """
     Mixin to add AJAX support to a form.
@@ -47,6 +46,7 @@ class AjaxableResponseMixin(object):
 class CommentListView(ListView):
 
     """
+    Class that lists all instances of model:comment.Comment
     """
     model = Comment
     template_name = "comments/comments.html"
@@ -58,6 +58,10 @@ class CommentListView(ListView):
 
 
 class CommentCreateView(AjaxableResponseMixin, CreateView):
+    """
+    Class that creates an instance of model:comment.Comment
+
+    """
     form_class = CommentForm
     model = Comment
     template_name = 'comments/comment_form.html'
@@ -65,6 +69,10 @@ class CommentCreateView(AjaxableResponseMixin, CreateView):
 
 
 class CommentDeleteView(DeleteView):
+    """
+    Class that deletes an instance of model:comment.Comment
+
+    """
     model = Comment
     success_url = reverse_lazy('comment-list')
 
