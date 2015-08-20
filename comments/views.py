@@ -1,7 +1,8 @@
-from django.views.generic import CreateView, ListView, DeleteView
+from django.views.generic import (
+    CreateView, ListView, DeleteView, FormView)
 from django.core.urlresolvers import reverse_lazy
 from django.http import JsonResponse, HttpResponseRedirect
-from .models import Comment
+from .models import Comment, Like
 from .forms import CommentForm
 
 
@@ -82,3 +83,34 @@ class CommentDeleteView(DeleteView):
             return JsonResponse(data)
         else:
             return HttpResponseRedirect(self.success_url)
+
+
+class LikeComment(FormView):
+
+    def get(self, request, *args, **kwargs):
+        comment_id = request.GET['comment_id']
+        likes_count = 0
+        data = {}
+        try:
+            user = request.user
+        except:
+            data['success'] = 0
+            data['error'] = "You have to sign in first"
+            return JsonResponse(data)
+        try:
+            comment = Comment.objects.get(id=comment_id)
+            likes_count = comment.likes_count
+            try:
+                Like.objects.get(comment=comment, user=user)
+                data['success'] = 0
+                data['error'] = "You have already liked this comment"
+            except:
+                Like.objects.create(comment=comment, user=user).save()
+                likes_count += 1
+                comment.likes_count = likes_count
+                comment.save()
+                data['likes_count'] = likes_count
+                data['success'] = 1
+        except:
+            data['error'] = "This comment might have been removed"
+        return JsonResponse(data)
