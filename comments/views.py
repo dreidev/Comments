@@ -1,5 +1,6 @@
 from django.views.generic import CreateView, ListView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+from django.template.loader import render_to_string
 from django.http import JsonResponse
 from .models import Comment
 from .forms import CommentForm
@@ -27,11 +28,10 @@ class AjaxableResponseMixin(object):
         response = super(AjaxableResponseMixin, self).form_valid(form)
         if self.request.is_ajax():
             try:
-                pk = self.recipe_id
                 data = {
                     'success': 1,
-                    'pk': pk
-
+                    'pk': self.object.pk,
+                    'comment': self.object.comment,
                 }
             except:
                 data = {
@@ -55,7 +55,7 @@ class CommentListView(ListView):
         return context
 
 
-class CommentCreateView(CreateView):
+class CommentCreateView(AjaxableResponseMixin, CreateView):
     form_class = CommentForm
     model = Comment
     template_name = 'comments/comment_form.html'
