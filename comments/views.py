@@ -1,7 +1,7 @@
 from django.views.generic import CreateView, ListView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.template.loader import render_to_string
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from .models import Comment
 from .forms import CommentForm
 
@@ -62,6 +62,23 @@ class CommentCreateView(AjaxableResponseMixin, CreateView):
     success_url = reverse_lazy('comment-list')
 
 
-class CommentDeleteView(AjaxableResponseMixin, DeleteView):
+class CommentDeleteView(DeleteView):
     model = Comment
     success_url = reverse_lazy('comment-list')
+
+    def get(self, request, *args, **kwargs):
+        """
+        Calls the delete() method on the fetched object and then
+        redirects to the success URL.
+        """
+        try:
+            id = request.GET['id']
+            self.object = Comment.objects.get(id=id)
+            self.object.delete()
+            data = {"success": "1"}
+        except:
+            data = {"success": "0"}
+        if request.is_ajax():
+            return JsonResponse(data)
+        else:
+            return HttpResponseRedirect(self.success_url)

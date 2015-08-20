@@ -1,32 +1,20 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-<head>
-	<script src="{% static "js/jquery.js" %}"></script>
-	<script src="{% static "js/comments.js" %}"></script>
-
-	<title>Comments List</title>
-</head>
-<body>
-	{% for object in object_list %}
-		<div class="comment">
-			Comment: {{ object.comment }}
-			<br>
-			Likes: {{ object.likes_count }}
-			<br>
-			By: 
-			{% if object.user %}
-				{{ object.user.username }}
-			{% else %}
-				Guest
-			{% endif %}
-			<br> ------------------- <br>
+	<head>
+		<script src="{% static "js/jquery.js" %}"></script>
+		<script src="{% static "js/delete.js" %}"></script>
+		<script src="{% static "js/comments.js" %}"></script>
+		<title>Comments List</title>
+	</head>
+	<body>
+		{% for object in object_list %}
+			<div id="comment-div-{{ object.id }}" >
+				{% include "comments/comment.html" with object=object %}
+			</div>
+		{% endfor %}
+		<div id="comment-input-div">
+			{% include "comments/comment_form.html" with form=form %}
 		</div>
-	{% empty %}
-		<h3> No Comments </h3>
-	{% endfor %}
-	<div id="comment-input-div">
-		{% include "comments/comment_form.html" with form=form %}
-	</div>
-</body>
+	</body>
 </html>
