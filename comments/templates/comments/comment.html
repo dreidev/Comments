@@ -8,6 +8,7 @@ Comment: <p id='comment-{{ object.id }}'> {{ object.comment }} </p>
 Likes: {{ object.likes_count }}
 <br>
 By: 
+
 {% if object.user %}
 	{{ object.user.username }}
 {% else %}
@@ -24,6 +25,17 @@ By:
 
 {% if object.user.id == user.id %}
 	<button class='comment-edit-class' data-id='{{ object.id }}'> Edit</button>	
+{% endif %}
+
+<br>
+{% if liked %}
+
+	<button class="like-comment-btn" id="like-btn-{{ object.id }}" data-like="liked" data-id="{{ object.id }}">Unlike</button>	
+
+{% else %}
+
+	<button class="like-comment-btn" id="like-btn-{{ object.id }}" data-like="like" data-id="{{ object.id }}">Like</button>
+	
 {% endif %}
 
 <br> ------------------- <br>

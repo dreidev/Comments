@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
-from .views import (CommentListView, CommentCreateView,
-                    CommentDeleteView, CommentUpdateView
-                    )
+from .views import (
+    CommentListView, CommentCreateView, CommentDeleteView,
+    LikeComment, UnlikeComment, CommentUpdateView)
 
 urlpatterns = patterns(
     '',
@@ -13,4 +13,6 @@ urlpatterns = patterns(
         name='comment-update'),
     url(r'^delete/(?P<pk>[-\w]+)$',
         CommentDeleteView.as_view(), name='comment-delete'),
+    url(r'^like/$', LikeComment.as_view(), name='comment-like'),
+    url(r'^unlike/$', UnlikeComment.as_view(), name='comment-unlike'),
 )

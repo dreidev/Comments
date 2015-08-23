@@ -10,3 +10,8 @@ class Comment(models.Model):
     likes_count = models.IntegerField(
         default=0,
         validators=[MinValueValidator(0)])
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User)
+    comment = models.ForeignKey(Comment)
