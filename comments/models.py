@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 
 
-# Create your models here.
 class Comment(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
 
