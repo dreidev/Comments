@@ -13,7 +13,7 @@
 
 		{% for comment, liked in comment_liked %}
 
-			<div id="comment-div-{{ object.id }}" >
+			<div id="comment-div-{{ comment.id }}" >
 				{% include "comments/comment.html" with object=comment liked=liked form=form %}
 			</div>
 

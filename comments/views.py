@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponseRedirect
 from .models import Comment, Like
 from .forms import CommentForm
-from django.contrib.auth import authenticate, login
+# from django.contrib.auth import authenticate, login, logout
 
 
 class AjaxableResponseMixin(object):
@@ -31,7 +31,9 @@ class AjaxableResponseMixin(object):
         if self.request.is_ajax():
             html = render_to_string(
                 "comments/comment.html",
-                {'object': self.object})
+                {'object': self.object,
+                 'user': self.request.user,
+                 'form': CommentForm()})
             try:
                 data = {
                     'success': 1,
@@ -57,11 +59,12 @@ class CommentListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(CommentListView, self).get_context_data(**kwargs)
         context['form'] = CommentForm()
-        username = 'alyyakan'
-        password = 'pass'
-        user = authenticate(username=username, password=password)
-        if user:
-            login(self.request, user)
+        # username = 'rana'
+        # password = 'pass'
+        # user = authenticate(username=username, password=password)
+        # if user:
+        #     login(self.request, user)
+        # logout(self.request)
         context['comment_liked'] = self.get_comments_liked_zipped_list()
         return context
 
@@ -113,8 +116,11 @@ class CommentDeleteView(DeleteView):
         try:
             id = request.GET['id']
             self.object = Comment.objects.get(id=id)
-            self.object.delete()
-            data = {"success": "1"}
+            if (self.object.user.id == request.user.id):
+                self.object.delete()
+                data = {"success": "1"}
+            else:
+                data = {"success": "0"}
         except:
             data = {"success": "0"}
         if request.is_ajax():

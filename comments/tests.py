@@ -21,3 +21,19 @@ class AddCommentTestCase(TestCase):
             {},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(Comment.objects.all().count(), init_comment_count)
+
+
+class DeleteCommentTestCase(TestCase):
+
+    def test_add_comment(self):
+        self.client.post(
+            reverse('comment-create'),
+            {'comment': 'form'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        init_comment_count = Comment.objects.all().count()
+        response = self.client.get(
+            reverse('comment-delete', kwargs={'pk': 1}),
+            {},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Comment.objects.all().count(), init_comment_count)

@@ -15,6 +15,18 @@ By:
 	Guest
 {% endif %}
 
+{% if object.user.id == user.id %}
+	<form class="comment-delete-form" method='DELETE' action="{% url "comment-delete" object.pk %}">
+		<input value="{% csrf_token %}" id="csrf" hidden>
+		{% csrf_token %}
+		<input type="submit" value="Delete" class="comment-delete-btn" data-id="{{ object.id }}"/>
+	</form>
+{% endif %}
+
+{% if object.user.id == user.id %}
+	<button class='comment-edit-class' data-id='{{ object.id }}'> Edit</button>	
+{% endif %}
+
 <br>
 {% if liked %}
 
@@ -25,13 +37,5 @@ By:
 	<button class="like-comment-btn" id="like-btn-{{ object.id }}" data-like="like" data-id="{{ object.id }}">Like</button>
 	
 {% endif %}
-
-<form class="comment-delete-form" method='DELETE' action="{% url "comment-delete" object.pk %}">
-	<input value="{% csrf_token %}" id="csrf" hidden>
-	{% csrf_token %}
-	<input type="submit" value="Delete" class="comment-delete-btn" data-id="{{ object.id }}"/>
-</form>
-
-<button class='comment-edit-class' data-id='{{ object.id }}'> Edit</button>
 
 <br> ------------------- <br>
