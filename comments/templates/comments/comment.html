@@ -23,11 +23,14 @@ By:
 	</form>
 {% endif %}
 
-{% if object.user.id == user.id %}
-	<button class='comment-edit-class' data-id='{{ object.id }}'> Edit</button>	
+{% if object.user %}
+	{% if object.user.id == user.id %}
+		<button class='comment-edit-class' data-id='{{ object.id }}'> Edit</button>	
+	{% endif %}
+	<br>
 {% endif %}
 
-<br>
+
 {% if liked %}
 
 	<button class="like-comment-btn" id="like-btn-{{ object.id }}" data-like="liked" data-id="{{ object.id }}">Unlike</button>	
