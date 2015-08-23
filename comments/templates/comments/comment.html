@@ -5,7 +5,7 @@ Comment: <p id='comment-{{ object.id }}'> {{ object.comment }} </p>
 	{% include "comments/edit.html" with pk=object.id form=form %}
 </div>
 <br>
-Likes: {{ object.likes_count }}
+Likes: <p id="likes-count-{{ object.id }}" >{{ object.likes_count }}</p>
 <br>
 By: 
 

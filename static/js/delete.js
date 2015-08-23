@@ -8,11 +8,10 @@ $(document).ready(function() {
                   url: $('.comment-delete-form').attr('action'),
                   data: {'id': id, 'csrfmiddlewaretoken' : $("#csrf").attr('value')},
                   success: function(data){
-                  	if(JSON.parse(data).success == 1) {
+                  	if(data['success'] == 1) {
                   		$('#comment-div-' + id).remove() 
                   	}
-                  },
-                  dataType: 'html'
+                  }
             });
 	});
 });

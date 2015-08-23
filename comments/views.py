@@ -171,10 +171,11 @@ class UnlikeComment(FormView):
             likes_count = comment.likes_count
             try:
                 Like.objects.get(comment=comment, user=user).delete()
-                data['success'] = 1
                 likes_count -= 1
                 comment.likes_count = likes_count
                 comment.save()
+                data['success'] = 1
+                data['likes_count'] = likes_count
             except:
                 data['success'] = 0
                 data['error'] = "You have to like the comment first"

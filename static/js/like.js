@@ -10,6 +10,7 @@ $(document).ready(function() {
 					if(data['success'] == 1) {
 						$('#like-btn-' + id).attr('data-like', 'liked');
 						$('#like-btn-' + id).text('Unlike');
+						$('#likes-count-' + id).text(data['likes_count']);
 					} else{
 						alert(JSON.parse(data).error)
 					}
@@ -24,6 +25,7 @@ $(document).ready(function() {
 					if(data['success'] == 1) {
 						$('#like-btn-' + id).attr('data-like', 'like');
 						$('#like-btn-' + id).text('Like');
+						$('#likes-count-' + id).text(data['likes_count']);
 					} else{
 						alert(JSON.parse(data).error)
 					}
