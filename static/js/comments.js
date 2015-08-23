@@ -19,7 +19,8 @@ $(document).ready(function() {
                   alert(errors)                      
                 }
                 else {
-                	$('#comment-input-div').prepend(json['html']);
+                    html = "<div id='comment-div-" + json['id'] + "'>" +json['html'] +"</div>"
+                	$('body').prepend(html);
                 	$('textarea#id_comment').val(" ");
                 }
 

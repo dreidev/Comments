@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('.like-comment-btn').click(function() {
+	$('body').on('click', '.like-comment-btn', function() {
 		var id = $(this).attr('data-id');
 		if($(this).attr('data-like') == 'like') {
 			$.ajax({
