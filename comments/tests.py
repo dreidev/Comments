@@ -25,7 +25,7 @@ class AddCommentTestCase(TestCase):
 
 class DeleteCommentTestCase(TestCase):
 
-    def test_add_comment(self):
+    def test_delete_comment(self):
         self.client.post(
             reverse('comment-create'),
             {'comment': 'form'},
