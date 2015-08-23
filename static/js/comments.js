@@ -20,7 +20,7 @@ $(document).ready(function() {
                 }
                 else {
                 	$('#comment-input-div').prepend(json['html']);
-                	$('#id_comment').val('');
+                	$('textarea#id_comment').val(" ");
                 }
 
             },
