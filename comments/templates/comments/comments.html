@@ -19,10 +19,9 @@
 
 		{% empty %}
 
-			<h3> No Comments </h3>
+			<h3 id='no-comments'> No Comments </h3>
 
 		{% endfor %}
-
 		<div id="comment-input-div">
 			{% include "comments/comment_form.html" with form=form %}
 		</div>

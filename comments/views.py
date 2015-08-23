@@ -124,7 +124,8 @@ class CommentDeleteView(DeleteView):
             self.object = Comment.objects.get(id=id)
             if (self.object.user.id == request.user.id):
                 self.object.delete()
-                data = {"success": "1"}
+                data = {"success": "1",
+                        "count": Comment.objects.count()}
             else:
                 data = {"success": "0"}
         except:
