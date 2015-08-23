@@ -6,23 +6,22 @@ $(document).ready(function() {
 		$('#comment-edit-' + id).show();
 		$('#comment-' + id).hide();
 });
-	$('#edit-form').on('submit', function(event){
+	$('.edit-form').on('submit', function(event){
     event.preventDefault();
     var form = $(this);
-    var data = $('#edit-form').serialize();
+    var data = form.serialize();
     var id = $(this).attr('data-id');
     var comment = document.getElementById('comment-'+id);
     var error = document.getElementById('edit-form-errors');
-
     $.ajax({
             type: "POST",
-            url: $('#edit-form').attr('action'),
-            data: $('#edit-form').serialize(),
+            url: form.attr('action'),
+            data: data,
 
             success: function(data){
                 json = JSON.parse(data);
             	if(json.success == 1) {
-            		comment.innerHTML = $('#id_comment').val();
+            		comment.innerHTML = $('#input-comment-' + id).val();
             		$('#comment-edit-' + id).hide();
             		$('#comment-' + id).show();
             	} else if(json.success == 0){
@@ -32,7 +31,6 @@ $(document).ready(function() {
                 }
                 error.innerHTML = errors;
             }
-
             },
             dataType: 'html'
         });
