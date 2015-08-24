@@ -1,5 +1,5 @@
 {% load static model_name %}
-{% get_model_name trial %}
+
  <p id='comment-{{ object.id }}'> Comment: {{ object.comment }} </p>
  <p>{{ object.created_at }}</p>
 <div id="comment-edit-{{ object.id }}" hidden>
@@ -13,12 +13,14 @@
 	<p>By: Guest </p>
 {% endif %}
 
-{% if object.user.id == user.id %}
-	<form class="comment-delete-form" method='DELETE' action="{% url "comment-delete" object.pk %}">
-		<input value="{% csrf_token %}" id="csrf" hidden>
-		{% csrf_token %}
-		<input type="submit" value="Delete" class="comment-delete-btn" data-id="{{ object.id }}"/>
-	</form>
+{% if object.user %}
+	{% if object.user.id == user.id %}
+		<form class="comment-delete-form" method='DELETE' action="{% url "comment-delete" object.pk %}">
+			<input value="{% csrf_token %}" id="csrf" hidden>
+			{% csrf_token %}
+			<input type="submit" value="Delete" class="comment-delete-btn" data-id="{{ object.id }}"/>
+		</form>
+	{% endif %}
 {% endif %}
 
 {% if object.user %}

@@ -1,6 +1,6 @@
 from django.views.generic import (
     CreateView, ListView, DeleteView, FormView,
-    UpdateView)
+    UpdateView, TemplateView)
 from django.core.urlresolvers import reverse_lazy
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponseRedirect
@@ -242,3 +242,4 @@ class CommentUpdateView(AjaxableResponseMixin, UpdateView):
     model = Comment
     template_name = 'comments/edit.html'
     success_url = reverse_lazy('comment-list')
+
