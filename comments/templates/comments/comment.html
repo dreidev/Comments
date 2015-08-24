@@ -1,18 +1,16 @@
 {% load static %}
 
-Comment: <p id='comment-{{ object.id }}'> {{ object.comment }} </p>
+ <p id='comment-{{ object.id }}'> Comment: {{ object.comment }} </p>
+ <p>{{ object.created_at }}</p>
 <div id="comment-edit-{{ object.id }}" hidden>
 	{% include "comments/edit.html" with pk=object.id form=form %}
 </div>
-<br>
-Likes: <p id="likes-count-{{ object.id }}" >{{ object.likes_count }}</p>
-<br>
-By: 
+ <p id="likes-count-{{ object.id }}" >Likes: {{ object.likes_count }}</p>
 
 {% if object.user %}
-	{{ object.user.username }}
+	<p>By: {{ object.user.username }} </p>
 {% else %}
-	Guest
+	<p>By: Guest </p>
 {% endif %}
 
 {% if object.user.id == user.id %}
@@ -27,7 +25,6 @@ By:
 	<button class='comment-edit-class' data-id='{{ object.id }}'> Edit</button>	
 {% endif %}
 
-<br>
 {% if liked %}
 
 	<button class="like-comment-btn" id="like-btn-{{ object.id }}" data-like="liked" data-id="{{ object.id }}">Unlike</button>	
