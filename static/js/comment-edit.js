@@ -1,12 +1,13 @@
 $(document).ready(function() {
 	
-	$('.comment-edit-class').click(function(event){
+	$('body').on('click', '.comment-edit-class', function(event){
 
 		var id = $(this).attr('data-id');
 		$('#comment-edit-' + id).show();
 		$('#comment-' + id).hide();
-});
-	$('.edit-form').on('submit', function(event){
+    });
+
+	$('body').on('submit', '.edit-form', function(event){
     event.preventDefault();
     var form = $(this);
     var data = form.serialize();
@@ -34,6 +35,6 @@ $(document).ready(function() {
             },
             dataType: 'html'
         });
-});
+    });
 
 })

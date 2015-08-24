@@ -26,7 +26,7 @@ class AddCommentTestCase(TestCase):
 
 class DeleteCommentTestCase(TestCase):
 
-    def test_add_comment(self):
+    def test_delete_comment(self):
         self.client.post(
             reverse('comment-create'),
             {'comment': 'form'},
@@ -104,3 +104,19 @@ class LikeCommentTestCase(TestCase):
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Like.objects.all().count(), init_likes_count+0)
+
+
+class EditCommentTestCase(TestCase):
+
+    def test_edit_comment_owner(self):
+        user = User.objects.create_user(username='john',
+                                        password='glass onion')
+        comment = Comment.objects.create(
+            user_id=user.id, comment="trial comment")
+        response = self.client.post(
+            reverse('comment-update', kwargs={'pk': comment.id}),
+            {'user': user.id, 'comment': 'trial'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            Comment.objects.get(id=comment.id).comment, 'trial')

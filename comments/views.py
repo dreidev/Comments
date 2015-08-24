@@ -4,6 +4,7 @@ from django.views.generic import (
 from django.core.urlresolvers import reverse_lazy
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponseRedirect
+from django.middleware.csrf import get_token
 from .models import Comment, Like
 from .forms import CommentForm
 # from django.contrib.auth import authenticate, login, logout
@@ -29,15 +30,20 @@ class AjaxableResponseMixin(object):
         # call form.save() for example).
         response = super(AjaxableResponseMixin, self).form_valid(form)
         if self.request.is_ajax():
+            csrf_token_value = get_token(self.request)
             html = render_to_string(
                 "comments/comment.html",
                 {'object': self.object,
                  'user': self.request.user,
-                 'form': CommentForm()})
+                 'form': CommentForm(),
+                 'liked': False,
+                 'csrf_token': csrf_token_value,
+                 })
             try:
                 data = {
                     'success': 1,
                     'html': html,
+                    'id': self.object.id
                 }
             except:
                 data = {
@@ -118,7 +124,8 @@ class CommentDeleteView(DeleteView):
             self.object = Comment.objects.get(id=id)
             if (self.object.user.id == request.user.id):
                 self.object.delete()
-                data = {"success": "1"}
+                data = {"success": "1",
+                        "count": Comment.objects.count()}
             else:
                 data = {"success": "0"}
         except:
