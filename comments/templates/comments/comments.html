@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load static %}
+{% load static model_name %}
 <html>
 	<head>
 		<script src="{% static "js/jquery.js" %}"></script>
@@ -10,7 +10,6 @@
 		<title>Comments List</title>
 	</head>
 	<body>
-
 		{% for comment, liked in comment_liked %}
 
 			<div id="comment-div-{{ comment.id }}" >
@@ -23,7 +22,7 @@
 
 		{% endfor %}
 		<div id="comment-input-div">
-			{% include "comments/comment_form.html" with form=form %}
+			{% include "comments/comment_form.html" with form=form target=target %}
 		</div>
 
 	</body>

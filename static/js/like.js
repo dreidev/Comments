@@ -12,7 +12,7 @@ $(document).ready(function() {
 						$('#like-btn-' + id).text('Unlike');
 						$('#likes-count-' + id).text(data['likes_count']);
 					} else{
-						alert(JSON.parse(data).error)
+						alert(data['error']);
 					}
 				}
 			});
@@ -27,7 +27,7 @@ $(document).ready(function() {
 						$('#like-btn-' + id).text('Like');
 						$('#likes-count-' + id).text(data['likes_count']);
 					} else{
-						alert(JSON.parse(data).error)
+						alert(data['error']);
 					}
 				}
 			});

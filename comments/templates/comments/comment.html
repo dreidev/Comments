@@ -1,5 +1,5 @@
-{% load static %}
-
+{% load static model_name %}
+{% get_model_name trial %}
  <p id='comment-{{ object.id }}'> Comment: {{ object.comment }} </p>
  <p>{{ object.created_at }}</p>
 <div id="comment-edit-{{ object.id }}" hidden>
