@@ -137,25 +137,35 @@ class CommentDeleteView(DeleteView):
 
 
 class LikeComment(FormView):
+    """
+    Class that creates an instance of model:comment.Like
+    """
 
     def get(self, request, *args, **kwargs):
         comment_id = request.GET['comment_id']
         likes_count = 0
         data = {}
         try:
+            # Check if user is authenticated.
             user = request.user
         except:
+            # Return if user is not authenticated.
             data['success'] = 0
             data['error'] = "You have to sign in first"
             return JsonResponse(data)
         try:
+            # Check if the comment with the requested id exists.
             comment = Comment.objects.get(id=comment_id)
             likes_count = comment.likes_count
             try:
+                # Check if the user already liked the comment,
+                # Do nothing in this case.
                 Like.objects.get(comment=comment, user=user)
                 data['success'] = 0
                 data['error'] = "You have already liked this comment"
             except:
+                # Create a like on the comment in case the user hasn't
+                # liked it already.
                 Like.objects.create(comment=comment, user=user).save()
                 likes_count += 1
                 comment.likes_count = likes_count
@@ -163,26 +173,36 @@ class LikeComment(FormView):
                 data['likes_count'] = likes_count
                 data['success'] = 1
         except:
+            # Return an error where the comment might have been removed.
+            data['success'] = 0
             data['error'] = "This comment might have been removed"
         return JsonResponse(data)
 
 
 class UnlikeComment(FormView):
+    """
+    Class that deletes an instance of model:comment.Like
+    """
 
     def get(self, request, *args, **kwargs):
         comment_id = request.GET['comment_id']
         likes_count = 0
         data = {}
         try:
+            # Check if user is authenticated.
             user = request.user
         except:
+            # Return if user is not authenticated.
             data['success'] = 0
             data['error'] = "You have to sign in first"
             return JsonResponse(data)
         try:
+            # Check if the comment with the requested id exists.
             comment = Comment.objects.get(id=comment_id)
             likes_count = comment.likes_count
             try:
+                # Check if the user already liked the comment,
+                # Unlike the comment in this case.
                 Like.objects.get(comment=comment, user=user).delete()
                 likes_count -= 1
                 comment.likes_count = likes_count
@@ -190,14 +210,19 @@ class UnlikeComment(FormView):
                 data['success'] = 1
                 data['likes_count'] = likes_count
             except:
+                # If the user hasn't liked it, return an error.
                 data['success'] = 0
                 data['error'] = "You have to like the comment first"
         except:
+            # Return an error where the comment might have been removed.
             data['error'] = "This comment might have been removed"
         return JsonResponse(data)
 
 
 class CommentUpdateView(AjaxableResponseMixin, UpdateView):
+    """
+    Class that updates an instance of model:comment.Comment
+    """
     form_class = CommentForm
     model = Comment
     template_name = 'comments/edit.html'
