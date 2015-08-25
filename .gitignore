@@ -56,7 +56,6 @@ docs/_build/
 # PyBuilder
 target/
 
-comments/migrations/
 *.pyc
 *.sqlite3
 *.DS_Store
