@@ -5,17 +5,19 @@ from django.core.urlresolvers import reverse_lazy
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponseRedirect
 from django.middleware.csrf import get_token
-from .models import Comment, Like, Post
-from .forms import CommentForm
+from comments.models import Comment, Like, Post
+from comments.forms import CommentForm
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 
 
 class AjaxableResponseMixin(object):
+
     """
     Mixin to add AJAX support to a form.
     Must be used with an object-based FormView (e.g. CreateView)
     """
+
     def form_invalid(self, form):
         response = super(AjaxableResponseMixin, self).form_invalid(form)
         if self.request.is_ajax():
@@ -98,6 +100,7 @@ class CommentListView(ListView):
 
 
 class CommentCreateView(AjaxableResponseMixin, CreateView):
+
     """
     Class that creates an instance of model:comment.Comment
 
@@ -120,6 +123,7 @@ class CommentCreateView(AjaxableResponseMixin, CreateView):
 
 
 class CommentDeleteView(DeleteView):
+
     """
     Class that deletes an instance of model:comment.Comment
 
@@ -150,6 +154,7 @@ class CommentDeleteView(DeleteView):
 
 
 class LikeComment(FormView):
+
     """
     Class that creates an instance of model:comment.Like
     """
@@ -194,6 +199,7 @@ class LikeComment(FormView):
 
 
 class UnlikeComment(FormView):
+
     """
     Class that deletes an instance of model:comment.Like
     """
@@ -235,6 +241,7 @@ class UnlikeComment(FormView):
 
 
 class CommentUpdateView(AjaxableResponseMixin, UpdateView):
+
     """
     Class that updates an instance of model:comment.Comment
     """
@@ -242,4 +249,5 @@ class CommentUpdateView(AjaxableResponseMixin, UpdateView):
     model = Comment
     template_name = 'comments/edit.html'
     success_url = reverse_lazy('comment-list')
+
 
