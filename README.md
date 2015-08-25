@@ -18,6 +18,6 @@ Installation is available via `pip`
 
 or through source on github
 
-`$ git clone https://github.com/dreidev/Comments.git <br/>
+```$ git clone https://github.com/dreidev/Comments.git <br/>
 $ cd Comments <br/>
-$ python setup.py install`
+$ python setup.py install```
