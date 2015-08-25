@@ -1,3 +1,4 @@
+{% load model_name %}
 <!DOCTYPE html>
 
 	<form method="POST" action="{% url "comment-create" %}" class="add-comment-form">
@@ -6,7 +7,9 @@
 		{{ form.comment.label }}
 		<br>
 		{{ form.comment }}
-
+		<input name="model" value="{% get_model_name target %}" hidden>
+		<input name="model_id" value="{{ target.id }}" hidden>
+		<input name="app_name" value="{% get_app_name target %}" hidden>
 		<input id="id_user" name="user" value="{% if request.user.is_authenticated %}{{ request.user.id }}{% endif %}" hidden>
 		<input type="submit" value="Submit" id="add-comment" />
 	</form>

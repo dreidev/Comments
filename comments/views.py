@@ -1,20 +1,23 @@
 from django.views.generic import (
     CreateView, ListView, DeleteView, FormView,
-    UpdateView)
+    UpdateView, TemplateView)
 from django.core.urlresolvers import reverse_lazy
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponseRedirect
 from django.middleware.csrf import get_token
-from .models import Comment, Like
-from .forms import CommentForm
-# from django.contrib.auth import authenticate, login, logout
+from comments.models import Comment, Like, Post
+from comments.forms import CommentForm
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth import authenticate, login
 
 
 class AjaxableResponseMixin(object):
+
     """
     Mixin to add AJAX support to a form.
     Must be used with an object-based FormView (e.g. CreateView)
     """
+
     def form_invalid(self, form):
         response = super(AjaxableResponseMixin, self).form_invalid(form)
         if self.request.is_ajax():
@@ -65,11 +68,12 @@ class CommentListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(CommentListView, self).get_context_data(**kwargs)
         context['form'] = CommentForm()
-        # username = 'rana'
-        # password = 'pass'
-        # user = authenticate(username=username, password=password)
-        # if user:
-        #     login(self.request, user)
+        context['target'] = Post.objects.get(id=1)
+        username = 'rana'
+        password = 'pass'
+        user = authenticate(username=username, password=password)
+        if user:
+            login(self.request, user)
         # logout(self.request)
         context['comment_liked'] = self.get_comments_liked_zipped_list()
         return context
@@ -96,6 +100,7 @@ class CommentListView(ListView):
 
 
 class CommentCreateView(AjaxableResponseMixin, CreateView):
+
     """
     Class that creates an instance of model:comment.Comment
 
@@ -105,8 +110,20 @@ class CommentCreateView(AjaxableResponseMixin, CreateView):
     template_name = 'comments/comment_form.html'
     success_url = reverse_lazy('comment-list')
 
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        content_type = ContentType.objects.get(
+            app_label=self.request.POST['app_name'],
+            model=self.request.POST['model'].lower())
+        model_object = content_type.get_object_for_this_type(
+            id=self.request.POST['model_id'])
+        comment.content_object = model_object
+        comment.save()
+        return super(CommentCreateView, self).form_valid(form)
+
 
 class CommentDeleteView(DeleteView):
+
     """
     Class that deletes an instance of model:comment.Comment
 
@@ -137,6 +154,7 @@ class CommentDeleteView(DeleteView):
 
 
 class LikeComment(FormView):
+
     """
     Class that creates an instance of model:comment.Like
     """
@@ -145,14 +163,15 @@ class LikeComment(FormView):
         comment_id = request.GET['comment_id']
         likes_count = 0
         data = {}
-        try:
-            # Check if user is authenticated.
-            user = request.user
-        except:
+
+        # Check if user is authenticated.
+        if not request.user.is_authenticated():
             # Return if user is not authenticated.
             data['success'] = 0
             data['error'] = "You have to sign in first"
             return JsonResponse(data)
+
+        user = request.user
         try:
             # Check if the comment with the requested id exists.
             comment = Comment.objects.get(id=comment_id)
@@ -180,6 +199,7 @@ class LikeComment(FormView):
 
 
 class UnlikeComment(FormView):
+
     """
     Class that deletes an instance of model:comment.Like
     """
@@ -188,14 +208,15 @@ class UnlikeComment(FormView):
         comment_id = request.GET['comment_id']
         likes_count = 0
         data = {}
-        try:
-            # Check if user is authenticated.
-            user = request.user
-        except:
+
+        # Check if user is authenticated.
+        if not request.user.is_authenticated():
             # Return if user is not authenticated.
             data['success'] = 0
             data['error'] = "You have to sign in first"
             return JsonResponse(data)
+
+        user = request.user
         try:
             # Check if the comment with the requested id exists.
             comment = Comment.objects.get(id=comment_id)
@@ -220,6 +241,7 @@ class UnlikeComment(FormView):
 
 
 class CommentUpdateView(AjaxableResponseMixin, UpdateView):
+
     """
     Class that updates an instance of model:comment.Comment
     """
@@ -227,3 +249,5 @@ class CommentUpdateView(AjaxableResponseMixin, UpdateView):
     model = Comment
     template_name = 'comments/edit.html'
     success_url = reverse_lazy('comment-list')
+
+

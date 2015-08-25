@@ -9,4 +9,5 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        exclude = ('likes_count', 'dislikes_count')
+        exclude = ('likes_count', 'dislikes_count', 'content_type', 'object_id',
+                   'content_object')
