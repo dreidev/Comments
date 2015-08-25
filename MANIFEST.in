@@ -1,4 +1,4 @@
-include AUTHORS CHANGES README INSTALL LICENCE
+include README
 recursive-include comments *.py *.html
 recursive-include static *.js
 include docs/Makefile
