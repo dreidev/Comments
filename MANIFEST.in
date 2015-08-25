@@ -1,5 +1,5 @@
 include README
 recursive-include comments *.py *.html
-recursive-include Comments/static *.js
+recursive-include comments/static *.js
 include docs/Makefile
 recursive-include docs/source *
