@@ -7,7 +7,7 @@ setup(
     version='1.0.0.dev1',
     author=u'DREIDEV',
     author_email='info@dreidev.com',
-    url='https://github.com/alyakan/Comments',
+    url='https://github.com/dreidev/Comments',
     license='MIT',
     classifiers=[
         'Development Status :: 3 - Alpha',
