@@ -30,9 +30,26 @@ In your `settings.py` file it should go like, note that you should add it somewh
 
 ```python
 INSTALLED_APPS = (
+	'django.contrib.admin',
 	'django.contrib.auth',
 	...
 	'comments',
 	..
 )
 ```
+
+Moving on to the `urls.py` file in your project's directory, add the following:
+
+```python
+urlpatterns = patterns('',
+    ...
+    url('^comments/', include('comments.urls')),
+    ...
+)
+```
+
+
+##Migrations Django 1.7 and later
+
+You should now migrate the comments up simply by typing in your terminal:
+`$ python manage.py migrate notifications`
