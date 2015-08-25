@@ -8,6 +8,10 @@ Welcome to django-ajax-comments's documentation!
 
 Contents:
 
+* :ref:`About`
+* :ref:`Installation`
+* :ref:`Setup`
+
 .. toctree::
    :maxdepth: 2
 
