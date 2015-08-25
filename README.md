@@ -52,4 +52,6 @@ urlpatterns = patterns('',
 ##Migrations Django 1.7 and later
 
 You should now migrate the comments up simply by typing in your terminal:
-`$ python manage.py migrate notifications`
+```
+$ python manage.py migrate notifications
+```
