@@ -14,7 +14,7 @@ List of actions you can do:
 
 Installation is available via `pip`
 
-`pip install django-ajax-comments`
+`$ pip install django-ajax-comments`
 
 or through source on github
 
@@ -22,4 +22,17 @@ or through source on github
 $ git clone https://github.com/dreidev/Comments.git
 $ cd Comments
 $ python setup.py install
+```
+
+You now need to add `django-ajax-comments` to your `INSTALLED_APPS` in `settings.py` and modify `urls.py` which are both in your your project's directory.
+
+In your `settings.py` file it should go like, note that you should add it somewhere after `django.contrib.auth`:
+
+```python
+INSTALLED_APPS = (
+	'django.contrib.auth',
+	...
+	'comments',
+	..
+)
 ```
