@@ -1,14 +1,13 @@
 from django.views.generic import (
     CreateView, ListView, DeleteView, FormView,
-    UpdateView, TemplateView)
+    UpdateView)
 from django.core.urlresolvers import reverse_lazy
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponseRedirect
 from django.middleware.csrf import get_token
-from comments.models import Comment, Like, Post
+from comments.models import Comment, Like
 from comments.forms import CommentForm
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth import authenticate, login
 
 
 class AjaxableResponseMixin(object):
@@ -68,13 +67,6 @@ class CommentListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(CommentListView, self).get_context_data(**kwargs)
         context['form'] = CommentForm()
-        context['target'] = Post.objects.get(id=1)
-        username = 'rana'
-        password = 'pass'
-        user = authenticate(username=username, password=password)
-        if user:
-            login(self.request, user)
-        # logout(self.request)
         context['comment_liked'] = self.get_comments_liked_zipped_list()
         return context
 
@@ -82,7 +74,6 @@ class CommentListView(ListView):
         """
         Returns a zipped list containing each comment and whether
         the current user liked it or not.
-        Author: Aly Yakan
         """
         try:
             user = self.request.user
@@ -112,12 +103,15 @@ class CommentCreateView(AjaxableResponseMixin, CreateView):
 
     def form_valid(self, form):
         comment = form.save(commit=False)
-        content_type = ContentType.objects.get(
-            app_label=self.request.POST['app_name'],
-            model=self.request.POST['model'].lower())
-        model_object = content_type.get_object_for_this_type(
-            id=self.request.POST['model_id'])
-        comment.content_object = model_object
+        try:
+            content_type = ContentType.objects.get(
+                app_label=self.request.POST['app_name'],
+                model=self.request.POST['model'].lower())
+            model_object = content_type.get_object_for_this_type(
+                id=self.request.POST['model_id'])
+            comment.content_object = model_object
+        except:
+            pass
         comment.save()
         return super(CommentCreateView, self).form_valid(form)
 
@@ -247,7 +241,5 @@ class CommentUpdateView(AjaxableResponseMixin, UpdateView):
     """
     form_class = CommentForm
     model = Comment
-    template_name = 'comments/edit.html'
+    template_name = 'comments/comment_edit_form.html'
     success_url = reverse_lazy('comment-list')
-
-

@@ -16,4 +16,3 @@ urlpatterns = patterns(
     url(r'^like/$', LikeComment.as_view(), name='comment-like'),
     url(r'^unlike/$', UnlikeComment.as_view(), name='comment-unlike'),
 )
-
