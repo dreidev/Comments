@@ -14,10 +14,12 @@ List of actions you can do:
 
 Installation is available via `pip`
 
-`pip install django-ajax-comments`
+::
+	pip install django-ajax-comments
 
 or through source on github
 
-`$ git clone https://github.com/dreidev/Comments.git
-$ cd Comments
-$ python setup.py install`
+::
+	$ git clone https://github.com/dreidev/Comments.git
+	$ cd Comments
+	$ python setup.py install
