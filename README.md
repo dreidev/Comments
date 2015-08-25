@@ -38,7 +38,7 @@ INSTALLED_APPS = (
 )
 ```
 
-Moving on to the `urls.py` file in your project's directory, add the following:
+Moving on to the `urls.py` file in your project's directory, add the following line to the urlpatterns:
 
 ```python
 urlpatterns = patterns('',
@@ -49,7 +49,7 @@ urlpatterns = patterns('',
 ```
 
 
-##Migrations Django 1.7 and later
+##Migrations for Django 1.7 and later
 
 You should now migrate the comments up simply by typing in your terminal:
 ```
