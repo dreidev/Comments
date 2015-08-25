@@ -1,8 +1,9 @@
- <p id='comment-{{ object.id }}'> Comment: {{ object.comment }} </p>
- <p>{{ object.created_at }}</p>
-<div id="comment-edit-{{ object.id }}" hidden>
-	{% include "comments/edit.html" with pk=object.id form=form %}
+ <p id='comment-{{ object.id }}'> {{ object.comment }} </p>
+ <div id="comment-edit-{{ object.id }}" hidden>
+	{% include "comments/comment_edit_form.html" with pk=object.id form=form %}
 </div>
+ <p>{{ object.created_at }}</p>
+
  <p id="likes-count-{{ object.id }}" >Likes: {{ object.likes_count }}</p>
 
 {% if object.user %}

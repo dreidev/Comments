@@ -1,10 +1,4 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Edit</title>
-</head>
-<body>
+
 	<form action="{% url 'comment-update' object.id %}" method="post" class="edit-form" id="edit-form" data-id='{{ object.id }}'>
 	{% csrf_token %}
 		<P id="edit-form-errors"></P>
@@ -12,5 +6,3 @@
 		 <input id="id_user" name="user" value="{% if user.is_authenticated %}{{ user.id }}{% endif %}" hidden>
 		 <input type="submit" value="Submit" />
 	</form>
-</body>
-</html>
