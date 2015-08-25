@@ -3,8 +3,8 @@ from distutils.core import setup
 from setuptools import find_packages
 
 setup(
-    name='django-comments',
-    version='1.0.0.dev1',
+    name='django-ajax-comments',
+    version='1.0.1.dev1',
     author=u'DREIDEV',
     author_email='info@dreidev.com',
     url='https://github.com/dreidev/Comments',
@@ -27,7 +27,6 @@ setup(
     ],
     keywords='comments comment development',
     description='Associates comments functionality with any given model',
-    long_description=open('README.md').read(),
     zip_safe=False,
     packages=find_packages(exclude=['docs', 'tests*']),
     include_package_data=True,
