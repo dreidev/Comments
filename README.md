@@ -1,5 +1,7 @@
 #`django-ajax-comments` Comments
 
+https://readthedocs.org/projects/pip/badge/
+
 `django-ajax-comments` is a commenting application for Django-powered websites.
 
 It allows you to integrate commenting functionality to any model you have eg. blogs, pictures, etc...
