@@ -107,11 +107,10 @@ This requires jQuery. If you're not already including it, we have a template tag
 In `settings.py` you could set some settings for the application
 
 ####`COMMENTS_ALLOW_ANONYMOUS`
->Its default is `False`.
+>Its default is `False`.                                                                                                                   
 >If set to `True`, anonymous users will be allowed to post comments.
 
 To set it to `True`, add the following to `settings.py`:
 ```python
 COMMENTS_ALLOW_ANONYMOUS = True
 ```
- Preferably at the bottom of your `settings.py` or anywhere after importing the comments app in `INSTALLED_APPS`
