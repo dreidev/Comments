@@ -2,7 +2,7 @@
 
 [![alt text][logo]](https://readthedocs.org/projects/comments/builds/)
 
-[logo]: https://readthedocs.org/projects/pip/badge/ "Build Passing"
+[logo]: https://readthedocs.org/projects/pip/badge/?version=latest "Build Passing"
 
 `django-ajax-comments` is a commenting application for Django-powered websites.
 
