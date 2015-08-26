@@ -87,7 +87,8 @@ In your template (e.g. blog-detail.html) add the following template tags where o
 {% get_comments object request.user %}
 ```
 
-This requires jQuery. Make sure to add the following to your template if you're not already loading jQuery locally
+This requires jQuery. Make sure to add the following to your template if you're not already loading jQuery locally.
+It should be added before loading the template tags above.
 ```html
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
