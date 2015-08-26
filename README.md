@@ -1,6 +1,6 @@
 #`django-ajax-comments` Comments
 
-![alt text][logo]
+[![alt text][logo]](https://readthedocs.org/projects/comments/builds/)
 
 [logo]: https://readthedocs.org/projects/pip/badge/ "Build Passing"
 
