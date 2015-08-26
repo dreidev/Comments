@@ -60,9 +60,9 @@ $ python manage.py migrate comments
 ##Setup
 
 ###Step 1
-In your models.py add the field comments to the model for which comments should be added (e.g. Blog) and the appropriate imports as showen below
+In your models.py add the field comments to the model for which comments should be added (e.g. Blog) and the appropriate imports as shown below
 
-```
+```python
 from django.contrib.contenttypes.fields import GenericRelation
 from comments.models import Comment
 
@@ -76,13 +76,13 @@ class Blog(models.Model):
 ###Step 2
 In your template (e.g. blog-detail.html) add the following template tags where object is the instance of blog.
 
-```
+```html
 {% load comments_tags %}
 {% get_comments object request.user %}
 ```
 
 This requires jQuery. Make sure to add the following to your template if you're not already loading jQuery locally
-```
+```html
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 ```
