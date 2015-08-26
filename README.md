@@ -10,6 +10,8 @@ List of actions you can do:
 * Delete a comment you posted (Authenticated)
 * Like a comment (Authenticated)
 
+####All actions are done through ajax
+
 ##Installation
 
 Installation is available via `pip`
@@ -55,3 +57,7 @@ You should now migrate the comments up simply by typing in your terminal:
 ```
 $ python manage.py migrate comments
 ```
+
+
+##Setup
+
