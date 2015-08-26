@@ -82,14 +82,18 @@ $ python manage.py migrate
 ###Step 2
 In your template (e.g. blog-detail.html) add the following template tags where object is the instance of blog.
 
-```html
-{% load comments_tags %}
-{% get_comments object request.user %}
+```python
+{% load comments_tags %}  # Loading the template tag
+{% get_comments object request.user %}  # Include all the comments belonging to a certain object
+{% comment_form object request.user %}  # Include the form for adding comments
+{% get_comment_count object %}  # Include the number of comments on a certain object
 ```
+The last template tag `{% get_comment_count object %}` is already included in `{% get_comments %}`, however you could include it seperately anywhere you want.
 
-This requires jQuery. Make sure to add the following to your template if you're not already loading jQuery locally.
-It should be added before loading the template tags above.
-```html
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+This requires jQuery. If you're not already including it, we have a template tag that you can include in your html.
+####It should be added after `{% load comments_tags %} directly.
+```python
+{% load comments_tags %}
+{% include_jQuery %}
 ```
