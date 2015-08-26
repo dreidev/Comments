@@ -37,3 +37,14 @@ def get_comments(object, user):
             "user": user}
 
 register.inclusion_tag('comments/comments.html')(get_comments)
+
+
+def comment_form(object, user):
+    """
+    renders template of comment form
+    """
+    return {"form": CommentForm(),
+            "target": object,
+            "user": user}
+
+register.inclusion_tag('comments/comment_form.html')(comment_form)
