@@ -43,7 +43,7 @@ In your urls.py:
 ```python
 urlpatterns = patterns('',
     ...
-    url('^comments/', include('comments.urls')),
+    url(r'^comments/', include('comments.urls')),
     ...
 )
 ```
