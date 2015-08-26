@@ -1,6 +1,6 @@
 #`django-ajax-comments` Comments
 
-`django-ajax-comments` is an application for Django-powered websites.
+`django-ajax-comments` is a commenting application for Django-powered websites.
 
 It allows you to integrate commenting functionality to any model you have eg. blogs, pictures, etc...
 
@@ -18,7 +18,7 @@ Installation is available via `pip`
 
 `$ pip install django-ajax-comments`
 
-or through source on github
+or via source on github
 
 ```
 $ git clone https://github.com/dreidev/Comments.git
@@ -26,9 +26,7 @@ $ cd Comments
 $ python setup.py install
 ```
 
-You now need to add `django-ajax-comments` to your `INSTALLED_APPS` in `settings.py` and modify `urls.py` which are both in your your project's directory.
-
-In your `settings.py` file it should go like, note that you should add it somewhere after `django.contrib.auth`:
+Add 'comments' to your installed_apps in your `settings.py` file. It should look like the following. Note that you should add it after `django.contrib.auth`:
 
 ```python
 INSTALLED_APPS = (
@@ -40,7 +38,7 @@ INSTALLED_APPS = (
 )
 ```
 
-Moving on to the `urls.py` file in your project's directory, add the following line to the urlpatterns:
+In your urls.py:
 
 ```python
 urlpatterns = patterns('',
@@ -53,7 +51,7 @@ urlpatterns = patterns('',
 
 ##Migrations for Django 1.7 and later
 
-You should now migrate the comments up simply by typing in your terminal:
+Migrate comments:
 ```
 $ python manage.py migrate comments
 ```
