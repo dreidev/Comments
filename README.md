@@ -73,6 +73,12 @@ class Blog(models.Model):
 	comments = GenericRelation(Comment)
 ```
 
+Migrate the extra field:
+```
+$ python manage.py makemigrations
+$ python manage.py migrate
+```
+
 ###Step 2
 In your template (e.g. blog-detail.html) add the following template tags where object is the instance of blog.
 
