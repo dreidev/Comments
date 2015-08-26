@@ -90,9 +90,7 @@ In your template (e.g. blog-detail.html) add the following template tags where o
 ```
 The last template tag `{% get_comment_count object %}` is already included in `{% get_comments %}`, however you could include it seperately anywhere you want.
 
-
-
-
+---
 
 This requires jQuery. If you're not already including it, we have a template tag that you can include in your html.
 ######It should be added after `{% load comments_tags %}` directly.
