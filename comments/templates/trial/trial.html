@@ -1,0 +1,6 @@
+{% load static comments_tags %}
+<script src="{% static "js/jquery.js" %}"></script>
+
+{{ object.post }}
+{% get_comments object request.user %}
+{% comment_form object user %}
