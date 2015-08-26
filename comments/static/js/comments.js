@@ -20,6 +20,8 @@ $(document).ready(function() {
                   alert(errors)                      
                 }
                 else {
+                    var comment_count = document.getElementById('comments-count');
+                    comment_count.innerHTML = parseInt(comment_count.innerHTML) + 1;
                     html = "<div id='comment-div-" + json['id'] + "'>" +json['html'] +"</div>"
                 	$('.comments').append(html);
                 	$('textarea#id_comment').val(" ");

@@ -17,6 +17,14 @@ def get_app_name(object):
     return type(object)._meta.app_label
 
 
+@register.simple_tag(name='get_comment_count')
+def get_comment_count(object):
+    """ returns the count of comments of an object """
+    print object
+    model_object = type(object).objects.get(id=object.id)
+    return model_object.comments.all().count()
+
+
 def get_comments(object, user):
     """
     Retrieves list of comments related to a certain object and renders
@@ -34,6 +42,7 @@ def get_comments(object, user):
     return {"form": CommentForm(),
             "comment_liked": zip(comments, liked),
             "target": object,
-            "user": user}
+            "user": user,
+            }
 
 register.inclusion_tag('comments/comments.html')(get_comments)
