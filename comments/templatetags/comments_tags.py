@@ -1,6 +1,8 @@
 from django import template
 from comments.models import Like
 from comments.forms import CommentForm
+from django.conf import settings
+
 
 register = template.Library()
 
@@ -52,9 +54,12 @@ def comment_form(object, user):
     """
     renders template of comment form
     """
-    return {"form": CommentForm(),
-            "target": object,
-            "user": user}
+    if not getattr(settings, 'COMMENTS_ALLOW_ANONYMOUS', True):
+        return
+    else:
+        return {"form": CommentForm(),
+                "target": object,
+                "user": user}
 
 register.inclusion_tag('comments/comment_form.html')(comment_form)
 
