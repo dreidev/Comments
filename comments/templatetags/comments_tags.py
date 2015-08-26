@@ -48,3 +48,9 @@ def comment_form(object, user):
             "user": user}
 
 register.inclusion_tag('comments/comment_form.html')(comment_form)
+
+
+def render_jQuery():
+    return
+
+register.inclusion_tag('comments/jQuery.html')(render_jQuery)
