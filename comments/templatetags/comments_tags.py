@@ -54,7 +54,7 @@ def comment_form(object, user):
     """
     renders template of comment form
     """
-    if not getattr(settings, 'COMMENTS_ALLOW_ANONYMOUS', True):
+    if not getattr(settings, 'COMMENTS_ALLOW_ANONYMOUS', False):
         return
     else:
         return {"form": CommentForm(),
