@@ -1,7 +1,7 @@
 from django.views.generic import (
     CreateView, ListView, DeleteView, FormView,
     UpdateView)
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponseRedirect
 from django.middleware.csrf import get_token
@@ -243,3 +243,14 @@ class CommentUpdateView(AjaxableResponseMixin, UpdateView):
     model = Comment
     template_name = 'comments/comment_edit_form.html'
     success_url = reverse_lazy('comment-list')
+
+    def form_valid(self, form):
+        if not self.object.user:
+            return JsonResponse({
+                'success': 0})
+        else:
+            form.save()
+            return super(CommentUpdateView, self).form_valid(form)
+
+    def is_valid(self, form):
+        print "helllooo"

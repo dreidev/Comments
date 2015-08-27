@@ -130,3 +130,13 @@ class EditCommentTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             Comment.objects.get(id=comment.id).comment, 'trial')
+
+    def test_edit_not_authentiated(self):
+        comment = Comment.objects.create(comment="trial comment")
+        response = self.client.post(
+            reverse('comment-update', kwargs={'pk': comment.id}),
+            {'comment': 'trial'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+        self.assertNotEqual(
+            Comment.objects.get(id=comment.id).comment, 'trial')
