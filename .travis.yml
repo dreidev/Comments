@@ -3,7 +3,9 @@ python:
   - "2.7"
 
 # command to install dependencies
-install: "pip install -r requirements.txt"
+install: 
+	- "pip install -r requirements.txt"
+	- "pip install pytz"
 # command to run tests
 script: 
 	- coverage run --branch --source=comments manage.py test
