@@ -246,8 +246,7 @@ class CommentUpdateView(AjaxableResponseMixin, UpdateView):
 
     def form_valid(self, form):
         if not self.object.user:
-            return JsonResponse({
-                'success': 0})
+            return HttpResponse('not allowed')
         else:
             if (self.request.user.is_authenticated and
                     self.object.user == self.request.user):
