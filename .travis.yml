@@ -4,10 +4,10 @@ python:
 
 # command to install dependencies
 install: 
-	- pip install tox
+  - pip install tox
 # command to run tests
 script: 
-	- tox
+  - tox
 
 env:
   - TOXENV=django18
