@@ -21,7 +21,11 @@ $(document).ready(function() {
                 }
                 else {
                     var comment_count = document.getElementById('comments-count');
-                    comment_count.innerHTML = parseInt(comment_count.innerHTML) + 1;
+                    if (parseInt(comment_count.innerHTML) == 0) {
+                        comment_count.innerHTML = parseInt(comment_count.innerHTML) + 1 + " Comment";
+                    } else {
+                        comment_count.innerHTML = parseInt(comment_count.innerHTML) + 1 + " Comments";
+                    }
                     html = "<div id='comment-div-" + json['id'] + "'>" +json['html'] +"</div>"
                 	$('.comments').append(html);
                 	$('textarea#id_comment').val(" ");
