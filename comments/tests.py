@@ -6,6 +6,11 @@ from django.contrib.auth.models import User
 
 class AddCommentTestCase(TestCase):
 
+    def setUp(self):
+        self.client = Client()
+        User.objects.create_user(username='johndoe', password='123456')
+        self.client.login(username='johndoe', password='123456')
+
     def test_add_comment(self):
         init_comment_count = Comment.objects.all().count()
         response = self.client.post(
@@ -107,6 +112,11 @@ class LikeCommentTestCase(TestCase):
 
 
 class EditCommentTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        User.objects.create_user(username='johndoe', password='123456')
+        self.client.login(username='johndoe', password='123456')
 
     def test_edit_comment_owner(self):
         user = User.objects.create_user(username='john',
