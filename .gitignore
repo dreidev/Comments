@@ -60,6 +60,7 @@ target/
 *.sqlite3
 *.DS_Store
 media/
+.coveralls.yml
 
 # Front End
 /node_modules
