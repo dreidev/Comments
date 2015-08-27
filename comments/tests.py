@@ -133,11 +133,26 @@ class EditCommentTestCase(TestCase):
             Comment.objects.get(id=comment.id).comment, 'trial')
 
     def test_edit_not_authentiated(self):
+        user = User.objects.create_user(username='john',
+                                        password='glass onion')
+        comment = Comment.objects.create(
+            user_id=user.id, comment="trial comment")
+        response = self.client.post(
+            reverse('comment-update', kwargs={'pk': comment.id}),
+            {'user': user.id, 'comment': 'trial'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            Comment.objects.get(id=comment.id).comment, 'trial comment')
+        self.assertEqual(response.content, 'not authenticated')
+
+    def test_edit_no_owner(self):
         comment = Comment.objects.create(comment="trial comment")
         response = self.client.post(
             reverse('comment-update', kwargs={'pk': comment.id}),
             {'comment': 'trial'},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
-        self.assertNotEqual(
-            Comment.objects.get(id=comment.id).comment, 'trial')
+        self.assertEqual(
+            Comment.objects.get(id=comment.id).comment, 'trial comment')
+        self.assertEqual(response.content, 'not allowed')
