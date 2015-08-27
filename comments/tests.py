@@ -121,6 +121,7 @@ class EditCommentTestCase(TestCase):
     def test_edit_comment_owner(self):
         user = User.objects.create_user(username='john',
                                         password='glass onion')
+        self.client.login(username='john', password='glass onion')
         comment = Comment.objects.create(
             user_id=user.id, comment="trial comment")
         response = self.client.post(

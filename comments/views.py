@@ -3,7 +3,7 @@ from django.views.generic import (
     UpdateView)
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.template.loader import render_to_string
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.middleware.csrf import get_token
 from comments.models import Comment, Like
 from comments.forms import CommentForm
@@ -249,8 +249,12 @@ class CommentUpdateView(AjaxableResponseMixin, UpdateView):
             return JsonResponse({
                 'success': 0})
         else:
-            form.save()
-            return super(CommentUpdateView, self).form_valid(form)
+            if (self.request.user.is_authenticated and
+                    self.object.user == self.request.user):
+                form.save()
+                return super(CommentUpdateView, self).form_valid(form)
+            else:
+                return HttpResponse('not authenticated')
 
     def is_valid(self, form):
         print "helllooo"
