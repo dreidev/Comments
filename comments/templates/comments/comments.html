@@ -4,7 +4,13 @@
 	
 	<div class="comments-wrapper">
 		<h3 > <p class="comments-count" id="comments-count">
-			{% get_comment_count target %} Comments</p> 
+			{% if comments_count == 1%}
+				{% get_comment_count target %}
+				Comment
+			{% else %}
+				{% get_comment_count target %}
+				Comments
+			{% endif %}</p> 
 		</h3>
 		<div class="comments">
 			{% for comment, liked in comment_liked %}

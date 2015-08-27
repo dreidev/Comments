@@ -43,6 +43,7 @@ def get_comments(object, user):
             "comment_liked": zip(comments, liked),
             "target": object,
             "user": user,
+            "comments_count": comments.count(),
             }
 
 register.inclusion_tag('comments/comments.html')(get_comments)
