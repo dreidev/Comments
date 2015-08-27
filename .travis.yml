@@ -6,8 +6,7 @@ python:
 install: 
   - pip install tox
 # command to run tests
-script: 
-  - tox
+script: tox
 
 env:
   - TOXENV=django18
