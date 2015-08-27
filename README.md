@@ -4,6 +4,8 @@
 
 [logo]: https://readthedocs.org/projects/pip/badge/?version=latest "Build Passing"
 
+[![Coverage Status](https://coveralls.io/repos/dreidev/Comments/badge.svg?branch=master&service=github)](https://coveralls.io/github/dreidev/Comments?branch=master)
+
 `django-ajax-comments` is a commenting application for Django-powered websites.
 
 It allows you to integrate commenting functionality to any model you have eg. blogs, pictures, etc...
