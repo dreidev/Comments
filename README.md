@@ -4,7 +4,7 @@
 
 [logo]: https://readthedocs.org/projects/pip/badge/?version=latest "Build Passing"
 
-[![Coverage Status](https://coveralls.io/repos/dreidev/Comments/badge.svg?branch=master&service=github)](https://coveralls.io/github/dreidev/Comments?branch=master)
+[![Coverage Status](https://coveralls.io/repos/dreidev/Comments/badge.svg?branch=HEAD&service=github)](https://coveralls.io/github/dreidev/Comments?branch=HEAD)
 
 [![Build Status](https://travis-ci.org/dreidev/Comments.svg?branch=master)](https://travis-ci.org/dreidev/Comments)
 
