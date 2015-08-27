@@ -3,6 +3,8 @@ python:
   - "2.7"
 
 # command to install dependencies
-install: "pip install -r requirements.txt"
+install:
+  - pip install -q Django==$DJANGO_VERSION
+  - python setup.py -q install
 # command to run tests
 script: make doctest
