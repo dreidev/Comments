@@ -44,6 +44,15 @@ class DeleteCommentTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Comment.objects.all().count(), init_comment_count)
 
+    def test_delete_comment_comment_not_existing(self):
+        init_comment_count = Comment.objects.all().count()
+        response = self.client.get(
+            reverse('comment-delete', kwargs={'pk': 1}),
+            {},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Comment.objects.all().count(), init_comment_count)
+
 
 class LikeCommentTestCase(TestCase):
 
