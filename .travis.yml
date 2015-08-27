@@ -3,6 +3,12 @@ python:
   - "2.7"
 
 # command to install dependencies
-install: python setup.py -q install
+install: 
+	- pip install tox
 # command to run tests
-script: make doctest
+script: 
+	- tox
+
+env:
+  - TOXENV=django18
+  - TOXENV=coverage
