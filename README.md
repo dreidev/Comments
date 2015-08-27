@@ -1,8 +1,8 @@
 #`django-ajax-comments` Comments
 
-[![alt text][logo]](https://readthedocs.org/projects/comments/builds/)
+<!-- [![alt text][logo]](https://readthedocs.org/projects/comments/builds/)
 
-[logo]: https://readthedocs.org/projects/pip/badge/?version=latest "Build Passing"
+[logo]: https://readthedocs.org/projects/pip/badge/?version=latest "Build Passing" -->
 
 [![Coverage Status](https://coveralls.io/repos/dreidev/Comments/badge.svg?branch=HEAD&service=github)](https://coveralls.io/github/dreidev/Comments?branch=HEAD)
 
