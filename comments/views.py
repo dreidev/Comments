@@ -1,5 +1,5 @@
 from django.views.generic import (
-    CreateView, DeleteView, FormView,
+    CreateView, ListView, DeleteView, FormView,
     UpdateView)
 from django.core.urlresolvers import reverse_lazy
 from django.template.loader import render_to_string
@@ -54,6 +54,40 @@ class AjaxableResponseMixin(object):
             return JsonResponse(data)
         else:
             return response
+
+
+class CommentListView(ListView):
+
+    """
+    Class that lists all instances of model:comment.Comment
+    """
+    model = Comment
+    template_name = "comments/comments.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(CommentListView, self).get_context_data(**kwargs)
+        context['form'] = CommentForm()
+        context['comment_liked'] = self.get_comments_liked_zipped_list()
+        return context
+
+    def get_comments_liked_zipped_list(self):
+        """
+        Returns a zipped list containing each comment and whether
+        the current user liked it or not.
+        """
+        try:
+            user = self.request.user
+        except:
+            return
+        comments = Comment.objects.all()
+        liked = []
+        for comment in comments:
+            try:
+                Like.objects.get(user=user, comment=comment)
+                liked.append(True)
+            except:
+                liked.append(False)
+        return zip(comments, liked)
 
 
 class CommentCreateView(AjaxableResponseMixin, CreateView):
