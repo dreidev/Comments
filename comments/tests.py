@@ -133,23 +133,6 @@ class LikeCommentTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Like.objects.all().count(), init_likes_count)
 
-    def test_unlike_comment_without_like(self):
-        """
-        Tests that an authenticated user cannot
-        unlike a comment they didn't like
-        """
-        self.client.post(
-            reverse('comment-create'),
-            {'comment': 'form'},
-            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        init_likes_count = Like.objects.all().count()
-        response = self.client.get(
-            reverse('comment-unlike'),
-            {'comment_id': 1},
-            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(Like.objects.all().count(), init_likes_count)
-
 
 class EditCommentTestCase(TestCase):
 
