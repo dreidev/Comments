@@ -1,6 +1,7 @@
 from django.views.generic import (
     CreateView, ListView, DeleteView, FormView,
     UpdateView)
+from django.core.urlresolvers import reverse_lazy
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.middleware.csrf import get_token
