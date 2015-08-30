@@ -1,11 +1,10 @@
 from django.conf.urls import patterns, url
 from .views import (
-    CommentListView, CommentCreateView, CommentDeleteView,
+    CommentCreateView, CommentDeleteView,
     LikeComment, UnlikeComment, CommentUpdateView)
 
 urlpatterns = patterns(
     '',
-    url(r'^$', CommentListView.as_view(), name='comment-list'),
     url(r'^create/$', CommentCreateView.as_view(), name='comment-create'),
     url(
         r'update/(?P<pk>[0-9]+)/$',
