@@ -1,5 +1,5 @@
 from django.views.generic import (
-    CreateView, ListView, DeleteView, FormView,
+    CreateView, DeleteView, FormView,
     UpdateView)
 from django.core.urlresolvers import reverse_lazy
 from django.template.loader import render_to_string
@@ -56,40 +56,6 @@ class AjaxableResponseMixin(object):
             return response
 
 
-class CommentListView(ListView):
-
-    """
-    Class that lists all instances of model:comment.Comment
-    """
-    model = Comment
-    template_name = "comments/comments.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(CommentListView, self).get_context_data(**kwargs)
-        context['form'] = CommentForm()
-        context['comment_liked'] = self.get_comments_liked_zipped_list()
-        return context
-
-    def get_comments_liked_zipped_list(self):
-        """
-        Returns a zipped list containing each comment and whether
-        the current user liked it or not.
-        """
-        try:
-            user = self.request.user
-        except:
-            return
-        comments = Comment.objects.all()
-        liked = []
-        for comment in comments:
-            try:
-                Like.objects.get(user=user, comment=comment)
-                liked.append(True)
-            except:
-                liked.append(False)
-        return zip(comments, liked)
-
-
 class CommentCreateView(AjaxableResponseMixin, CreateView):
 
     """
@@ -99,7 +65,7 @@ class CommentCreateView(AjaxableResponseMixin, CreateView):
     form_class = CommentForm
     model = Comment
     template_name = 'comments/comment_form.html'
-    success_url = reverse_lazy('comment-list')
+    success_url = reverse_lazy('comment-create')
 
     def form_valid(self, form):
         comment = form.save(commit=False)
@@ -123,7 +89,7 @@ class CommentDeleteView(DeleteView):
 
     """
     model = Comment
-    success_url = reverse_lazy('comment-list')
+    success_url = reverse_lazy('comment-create')
 
     def get(self, request, *args, **kwargs):
         """
@@ -242,7 +208,7 @@ class CommentUpdateView(AjaxableResponseMixin, UpdateView):
     form_class = CommentForm
     model = Comment
     template_name = 'comments/comment_edit_form.html'
-    success_url = reverse_lazy('comment-list')
+    success_url = reverse_lazy('comment-create')
 
     def form_valid(self, form):
         if not self.object.user:
