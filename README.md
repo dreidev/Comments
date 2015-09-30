@@ -81,12 +81,6 @@ class Blog(models.Model):
 	comments = GenericRelation(Comment)
 ```
 
-Migrate the extra field:
-```
-$ python manage.py makemigrations
-$ python manage.py migrate
-```
-
 ###Step 2
 In your template (e.g. blog-detail.html) add the following template tags where object is the instance of blog.
 
@@ -117,4 +111,13 @@ In `settings.py` you could set some settings for the application
 To set it to `True`, add the following to `settings.py`:
 ```python
 COMMENTS_ALLOW_ANONYMOUS = True
+```
+
+####`COMMENTS_ALLOW_LIKES`
+>Its default is `True`.                                                                                                                   
+>It allows authenticated users to like/unlike comments.
+
+To change the default, add the following to `settings.py`:
+```python
+COMMENTS_ALLOW_LIKES = False
 ```

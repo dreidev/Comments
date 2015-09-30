@@ -1,6 +1,7 @@
 {% load comments_tags %}
 
-{% if form %}
+{% if not user.is_authenticated and not allow_anonymous %}
+{% else %}
 	<div id="comment-input-div">
 		<form method="POST" action="{% url "comment-create" %}" class="add-comment-form">
 			{% csrf_token %}

@@ -8,6 +8,7 @@ from django.middleware.csrf import get_token
 from comments.models import Comment, Like
 from comments.forms import CommentForm
 from django.contrib.contenttypes.models import ContentType
+from django.conf import settings
 
 
 class AjaxableResponseMixin(object):
@@ -40,6 +41,10 @@ class AjaxableResponseMixin(object):
                  'form': CommentForm(),
                  'liked': False,
                  'csrf_token': csrf_token_value,
+                 'allow_likes': getattr(
+                    settings,
+                    'COMMENTS_ALLOW_LIKES',
+                    True)
                  })
             try:
                 data = {

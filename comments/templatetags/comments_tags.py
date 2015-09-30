@@ -46,7 +46,10 @@ def get_comments(object, user):
             "target": object,
             "user": user,
             "comments_count": comments.count(),
-            }
+            "allow_likes": getattr(
+                settings,
+                'COMMENTS_ALLOW_LIKES',
+                True)}
 
 register.inclusion_tag('comments/comments.html')(get_comments)
 
@@ -55,12 +58,14 @@ def comment_form(object, user):
     """
     renders template of comment form
     """
-    if not getattr(settings, 'COMMENTS_ALLOW_ANONYMOUS', False):
-        return
-    else:
-        return {"form": CommentForm(),
-                "target": object,
-                "user": user}
+    return {"form": CommentForm(),
+            "target": object,
+            "user": user,
+            "allow_anonymous": getattr(
+                settings,
+                'COMMENTS_ALLOW_ANONYMOUS',
+                False)}
+
 
 register.inclusion_tag('comments/comment_form.html')(comment_form)
 

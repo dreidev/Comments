@@ -29,14 +29,17 @@
 	<br>
 {% endif %}
 
-{% if liked %}
+{% if allow_likes %}	
+	{% if liked %}
 
-	<button class="like-comment-btn" id="like-btn-{{ object.id }}" data-like="liked" data-id="{{ object.id }}">Unlike</button>	
+		<button class="like-comment-btn" id="like-btn-{{ object.id }}" data-like="liked" data-id="{{ object.id }}">Unlike</button>	
 
-{% else %}
+	{% else %}
 
-	<button class="like-comment-btn" id="like-btn-{{ object.id }}" data-like="like" data-id="{{ object.id }}">Like</button>
-	
+		<button class="like-comment-btn" id="like-btn-{{ object.id }}" data-like="like" data-id="{{ object.id }}">Like</button>
+		
+	{% endif %}	
 {% endif %}
+
 
 <br> ------------------- <br>

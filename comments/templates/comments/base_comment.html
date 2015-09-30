@@ -1,6 +1,6 @@
 {% load static %}
 
 {% load static comments_tags %}
-{% render_jQuery %}
+{% include_jQuery %}
 {% get_comments object request.user %}
 {% comment_form object user %}
