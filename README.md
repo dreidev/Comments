@@ -125,5 +125,5 @@ COMMENTS_ALLOW_LIKES = False
 ##Styling
 If you want to customize the way your comments look follow the following steps:
 * In your template directory, create a folder and call it comments
-* Retrieve the html templates for the comments application for its directory which can be found in your sitepackages and github as well.
+* Retrieve the html templates for the comments application from its directory which can be found in your sitepackages and github as well.
 * Manipulate those templates as you see fit by adding css classes and such.
