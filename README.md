@@ -127,3 +127,5 @@ If you want to customize the way your comments look follow the following steps:
 * In your template directory, create a folder and call it comments
 * Retrieve the html templates for the comments application from its directory which can be found in your sitepackages and github as well.
 * Manipulate those templates as you see fit by adding css classes and such.
+
+and you're done.
