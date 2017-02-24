@@ -22,7 +22,6 @@ def get_app_name(object):
 @register.simple_tag(name='get_comment_count')
 def get_comment_count(object):
     """ returns the count of comments of an object """
-    print object
     model_object = type(object).objects.get(id=object.id)
     return model_object.comments.all().count()
 

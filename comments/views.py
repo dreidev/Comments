@@ -225,6 +225,3 @@ class CommentUpdateView(AjaxableResponseMixin, UpdateView):
                 return super(CommentUpdateView, self).form_valid(form)
             else:
                 return HttpResponse('not authenticated')
-
-    def is_valid(self, form):
-        print "helllooo"
